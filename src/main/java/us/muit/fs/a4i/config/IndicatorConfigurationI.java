@@ -43,6 +43,7 @@ public interface IndicatorConfigurationI {
 	 * 
 	 * @param indicator ReportItem para el que se quiere calcular el estado
 	 * @return El estado del indicador
+	 * @throws FileNotFoundException 
 	 */
-	public IndicatorI.IndicatorState getIndicatorState(ReportItemI indicator);
+	public IndicatorI.IndicatorState getIndicatorState(ReportItemI indicator) throws FileNotFoundException;
 }

@@ -141,9 +141,23 @@ public class IndicatorConfiguration implements IndicatorConfigurationI {
 	}
 
 	@Override
-	public IndicatorState getIndicatorState(ReportItemI indicator) {
-		// TODO Auto-generated method stub
-		return null;
+	public IndicatorState getIndicatorState(ReportItemI indicator) throws FileNotFoundException {
+		//TODO: change indicator definitions key name to a constant.
+		HashMap<String, String> indicatorDefinition = definedIndicator(indicator.getName(), indicator.getClass().getName());
+		
+		Integer value = (Integer) indicator.getValue();
+		IndicatorState finalState = IndicatorState.UNDEFINED;
+		
+		//FIXME: check indicator data type possibilities.
+		if(value >= Integer.parseInt(indicatorDefinition.get("limits.critical"))) {
+			finalState = IndicatorState.CRITICAL;
+		} else if (value >= Integer.parseInt(indicatorDefinition.get("limits.warning"))) {
+			finalState = IndicatorState.WARNING;
+		} else if (value > Integer.parseInt(indicatorDefinition.get("limits.ok"))) {
+			finalState = IndicatorState.OK;
+		}
+		
+		return finalState;
 	}
 
 }
